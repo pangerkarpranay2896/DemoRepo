@@ -1,0 +1,85 @@
+CREATE TABLE ProductCategory
+(
+   ProductCategoryID int Auto_Increment primary key,
+   ProductName varchar(20)
+);
+
+DROP ProductCategory;
+---------------------------------------------------------
+#INSERT COMMAND ProductCategory#
+
+INSERT INTO ProductCategory
+   VALUES (123,'Bikes');
+
+INSERT INTO ProductCategory(ProductName)
+   VALUES ('Car');
+
+
+
+-----------------------------------------------------------
+CREATE TABLE ProductSubCategory
+(
+   ProductSubCategoryID int Auto_Increment primary key,
+   SubProductName varchar(20),
+   ProductCategoryID int,
+   
+   CONSTRAINT ProductSubCategory_ProductCategoryID_FK
+      FOREIGN KEY(ProductCategoryID)
+      REFERENCES ProductCategory(ProductCategoryID)
+);
+
+DROP ProductSubCategory;
+
+#INSERT COMMANDS ProductSubCategory#
+INSERT INTO ProductSubCategory 
+   VALUES (1001,'Bajaj',123);
+
+INSERT INTO ProductSubCategory (SubProductName,ProductCategoryID)
+   VALUES ('Tata',NULL);
+
+#BIKES123 CAR124 BICYCLE125 TRUCKS126 SUVs127 ELECTRIC_CAR128#
+
+
+
+--------------------------------------------------------
+
+#--------------JOINS----------------#
+CROSS JOIN
+INNER JOIN(JOIN)
+OUTER JOIN(LEFT,RIGHT,FULL)
+
+#-----------------------------------#
+#CROSS JOIN#
+SELECT PC.ProductName AS Vehicle,
+       SC.SubProductName AS Brand
+   FROM ProductCategory PC CROSS JOIN
+      ProductSubCategory SC
+   ON PC.ProductCategoryID = SC.ProductCategoryID;
+
+
+#INNER JOIN#
+SELECT PC.ProductName AS Vehicle,
+       SC.SubProductName AS Brand
+   FROM ProductCategory PC JOIN
+      ProductSubCategory SC
+   ON PC.ProductCategoryID = SC.ProductCategoryID;
+
+#OUTER JOIN#
+SELECT PC.ProductName AS Vehicle,
+       SC.SubProductName AS Brand
+   FROM ProductCategory PC LEFT OUTER JOIN
+      ProductSubCategory SC
+   ON PC.ProductCategoryID = SC.ProductCategoryID;
+
+SELECT PC.ProductName AS Vehicle,
+       SC.SubProductName AS Brand
+   FROM ProductCategory PC RIGHT OUTER JOIN
+      ProductSubCategory SC
+   ON PC.ProductCategoryID = SC.ProductCategoryID;
+
+SELECT PC.ProductName AS Vehicle,
+       SC.SubProductName AS Brand
+   FROM ProductCategory PC LEFT OUTER JOIN
+      ProductSubCategory SC
+   ON SC.ProductCategoryID = PC.ProductCategoryID;
+
